@@ -58,7 +58,13 @@ public class Adrianna {
 		return cards;
 	}
 	
-	public void saveCard(VCard card) {
+	public void saveCard(VCard card, String filename) {
+		File file = new File(baseDirectory, filename);
 		
+		try {
+			card.write(file);
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Could not write to file " + file.getAbsolutePath(), e);
+		}
 	}
 }

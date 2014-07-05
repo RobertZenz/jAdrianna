@@ -7,13 +7,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 
+import org.bonsaimind.jadrianna.core.Adrianna;
+
 public class Overview extends JPanel {
 	
-	public Overview() {
+	private Adrianna adrianna;
+	
+	public Overview(Adrianna adrianna) {
 		super(new BorderLayout());
+		
+		this.adrianna = adrianna;
 		
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
@@ -26,7 +33,9 @@ public class Overview extends JPanel {
 		add(topPanel, BorderLayout.NORTH);
 		
 		JTree tree = new JTree();
-		add(tree, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(tree);
+		
+		add(scrollPane, BorderLayout.CENTER);
 		
 		validate();
 	}
