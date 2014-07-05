@@ -23,4 +23,8 @@ public class VCardOnDisk {
 		return file;
 	}
 	
+	@Override
+	public String toString() {
+		return file.getName();
+	}
 }

@@ -15,6 +15,8 @@ public class Adrianna {
 	private static final Logger LOGGER = Logger.getLogger(Adrianna.class.getName());
 	
 	private File baseDirectory;
+	private List<VCardOnDisk> cards = new ArrayList<VCardOnDisk>();
+	private List<Adrianna> children = new ArrayList<Adrianna>();
 	
 	public Adrianna(File baseDirectory) {
 		this.baseDirectory = baseDirectory;
@@ -28,31 +30,21 @@ public class Adrianna {
 		}
 	}
 	
+	public File getBaseDirectory() {
+		return baseDirectory;
+	}
+	
 	public List<Adrianna> getChildren() {
-		List<Adrianna> children = new ArrayList<Adrianna>();
-		
-		for (File child : baseDirectory.listFiles()) {
-			if (child.isDirectory()) {
-				Adrianna adrianna = new Adrianna(child);
-				children.add(adrianna);
-			}
+		if (children.isEmpty()) {
+			readChildren();
 		}
 		
 		return children;
 	}
 	
-	public List<VCard> getCards() {
-		List<VCard> cards = new ArrayList<VCard>();
-		
-		for (File child : baseDirectory.listFiles()) {
-			if (child.isFile()) {
-				try {
-					VCard card = Ezvcard.parse(child).first();
-					cards.add(card);
-				} catch (IOException e) {
-					LOGGER.log(Level.WARNING, "Could not read from file " + child.getAbsolutePath(), e);
-				}
-			}
+	public List<VCardOnDisk> getCards() {
+		if (cards.isEmpty()) {
+			readCards();
 		}
 		
 		return cards;
@@ -65,6 +57,38 @@ public class Adrianna {
 			card.write(file);
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Could not write to file " + file.getAbsolutePath(), e);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return baseDirectory.getName();
+	}
+	
+	private void readCards() {
+		cards.clear();
+		
+		for (File child : baseDirectory.listFiles()) {
+			if (child.isFile() && child.getName().endsWith(".vcard")) {
+				try {
+					VCard card = Ezvcard.parse(child).first();
+					VCardOnDisk cardOnDisk = new VCardOnDisk(card, child);
+					cards.add(cardOnDisk);
+				} catch (IOException e) {
+					LOGGER.log(Level.WARNING, "Could not read from file " + child.getAbsolutePath(), e);
+				}
+			}
+		}
+	}
+	
+	private void readChildren() {
+		children.clear();
+		
+		for (File child : baseDirectory.listFiles()) {
+			if (child.isDirectory()) {
+				Adrianna adrianna = new Adrianna(child);
+				children.add(adrianna);
+			}
 		}
 	}
 }
