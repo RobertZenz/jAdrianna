@@ -20,6 +20,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.bonsaimind.jadrianna.core.Adrianna;
 import org.bonsaimind.jadrianna.core.VCardOnDisk;
+import org.bonsaimind.jadrianna.gui.swing.models.AdriannaTreeModel;
 
 public class Overview extends JPanel {
 	
