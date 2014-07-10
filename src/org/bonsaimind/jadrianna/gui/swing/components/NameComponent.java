@@ -24,8 +24,9 @@ public class NameComponent extends JPanel implements DisplayComponent {
 	public NameComponent() {
 		super(new BorderLayout());
 		
+		setBorder(BorderFactory.createTitledBorder("Name"));
+		
 		JPanel panel = new JPanel(new GridLayout(2, 5));
-		panel.setBorder(BorderFactory.createTitledBorder("Name"));
 		
 		panel.add(new JLabel("Honoric Prefixes"));
 		panel.add(new JLabel("Family Name"));

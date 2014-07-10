@@ -35,10 +35,10 @@ public class AddressComponent extends JPanel implements DisplayComponent {
 	public AddressComponent() {
 		super(new BorderLayout());
 		
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createTitledBorder("Addresses"));
+		setBorder(BorderFactory.createTitledBorder("Addresses"));
 		
 		JSplitPane splitPane = new JSplitPane();
+		splitPane.setDividerLocation(0.5d);
 		
 		addressListModel = new AddressListModel();
 		
@@ -93,9 +93,7 @@ public class AddressComponent extends JPanel implements DisplayComponent {
 		
 		splitPane.setRightComponent(detailPanel);
 		
-		panel.add(splitPane, BorderLayout.CENTER);
-		
-		add(panel, BorderLayout.CENTER);
+		add(splitPane, BorderLayout.CENTER);
 	}
 	
 	@Override

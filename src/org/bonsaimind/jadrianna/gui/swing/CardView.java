@@ -1,7 +1,6 @@
 package org.bonsaimind.jadrianna.gui.swing;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +16,15 @@ public class CardView extends JPanel {
 	private List<DisplayComponent> displayComponents = new ArrayList<DisplayComponent>();
 	
 	public CardView() {
-		super(new GridBagLayout());
-		
-		GridBagConstraints constraints = new GridBagConstraints();
-		
-		constraints.gridx = 0;
-		constraints.gridy = 0;
+		super(new BorderLayout());
 		
 		NameComponent name = new NameComponent();
 		displayComponents.add(name);
-		add(name, constraints);
-		
-		constraints.gridy = 1;
+		add(name, BorderLayout.NORTH);
 		
 		AddressComponent address = new AddressComponent();
 		displayComponents.add(address);
-		add(address, constraints);
+		add(address, BorderLayout.CENTER);
 	}
 	
 	public VCardOnDisk getCardOnDisk() {
