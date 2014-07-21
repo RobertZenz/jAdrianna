@@ -96,27 +96,6 @@ public class AddressComponent extends JPanel implements DisplayComponent {
 		add(splitPane, BorderLayout.CENTER);
 	}
 	
-	@Override
-	public void setFromCard(VCard card) {
-		addressList.removeAll();
-		
-		if (card == null) {
-			return;
-		}
-		
-		if (card.getAddresses() == null) {
-			return;
-		}
-		
-		addressListModel.setAddresses(card.getAddresses());
-		addressList.updateUI();
-	}
-	
-	@Override
-	public void setToCard(VCard card) {
-		
-	}
-	
 	private void setFromAddress(Address address) {
 		countryField.setText("");
 		extendedAddressField.setText("");
@@ -137,5 +116,26 @@ public class AddressComponent extends JPanel implements DisplayComponent {
 		postOfficeBoxField.setText(address.getPoBox());
 		regionField.setText(address.getRegion());
 		streetAddressField.setText(address.getStreetAddress());
+	}
+	
+	@Override
+	public void setFromCard(VCard card) {
+		addressList.removeAll();
+		
+		if (card == null) {
+			return;
+		}
+		
+		if (card.getAddresses() == null) {
+			return;
+		}
+		
+		addressListModel.setAddresses(card.getAddresses());
+		addressList.updateUI();
+	}
+	
+	@Override
+	public void setToCard(VCard card) {
+		
 	}
 }

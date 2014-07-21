@@ -70,17 +70,21 @@ public class NameComponent extends JPanel implements DisplayComponent {
 			return;
 		}
 		
-		additionalNamesField.setText("");
 		familyNameField.setText(name.getFamily());
 		givenNameField.setText(name.getGiven());
-		honoricPrefixesField.setText("");
-		honoricSuffixesField.setText("");
 	}
 	
 	@Override
 	public void setToCard(VCard card) {
-		// TODO Auto-generated method stub
+		StructuredName name = card.getStructuredName();
 		
+		if (name == null) {
+			name = new StructuredName();
+		}
+		
+		name.setFamily(familyNameField.getText());
+		name.setGiven(givenNameField.getText());
+		
+		card.setStructuredName(name);
 	}
-	
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ezvcard.Ezvcard;
 import ezvcard.VCard;
 
 public class Adrianna {
@@ -70,13 +69,8 @@ public class Adrianna {
 		
 		for (File child : baseDirectory.listFiles()) {
 			if (child.isFile() && child.getName().endsWith(".vcard")) {
-				try {
-					VCard card = Ezvcard.parse(child).first();
-					VCardOnDisk cardOnDisk = new VCardOnDisk(card, child);
-					cards.add(cardOnDisk);
-				} catch (IOException e) {
-					LOGGER.log(Level.WARNING, "Could not read from file " + child.getAbsolutePath(), e);
-				}
+				VCardOnDisk cardOnDisk = new VCardOnDisk(child);
+				cards.add(cardOnDisk);
 			}
 		}
 	}
