@@ -38,6 +38,7 @@ public class AddressComponent extends JPanel implements DisplayComponent {
 		setBorder(BorderFactory.createTitledBorder("Addresses"));
 		
 		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.5);
 		splitPane.setDividerLocation(0.5d);
 		
 		addressListModel = new AddressListModel();
