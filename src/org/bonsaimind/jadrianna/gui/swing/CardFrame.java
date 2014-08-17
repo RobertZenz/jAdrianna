@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 
 import org.bonsaimind.jadrianna.core.VCardOnDisk;
 
+import ezvcard.VCard;
+import ezvcard.property.FormattedName;
+
 public class CardFrame extends JFrame {
 	
 	private CardView cardView;
@@ -29,8 +32,16 @@ public class CardFrame extends JFrame {
 	public void setCardOnDisk(VCardOnDisk cardOnDisk) {
 		cardView.setCardOnDisk(cardOnDisk);
 		
-		if (cardOnDisk != null && cardOnDisk.getCard() != null) {
-			setTitle(cardOnDisk.getCard().getFormattedName().getValue());
+		if (cardOnDisk != null) {
+			VCard card = cardOnDisk.getCard();
+			
+			if (cardOnDisk.getCard() != null) {
+				FormattedName name = card.getFormattedName();
+				
+				if (name != null) {
+					setTitle(name.getValue());
+				}
+			}
 		}
 	}
 }

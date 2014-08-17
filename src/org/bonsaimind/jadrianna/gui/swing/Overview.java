@@ -95,6 +95,8 @@ public class Overview extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+					e.consume();
+					
 					Object selectedComponent = tree.getSelectionPath().getLastPathComponent();
 					
 					if (selectedComponent instanceof VCardOnDisk) {

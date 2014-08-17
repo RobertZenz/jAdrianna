@@ -39,12 +39,6 @@ public class CardView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (cardOnDisk != null) {
-					try {
-						cardOnDisk.readFromDisk();
-					} catch (IOException e) {
-						LOGGER.log(Level.SEVERE, "Failed to read card from disk.", e);
-					}
-					
 					refreshDisplay(cardOnDisk.getCard());
 				}
 			}
@@ -99,6 +93,14 @@ public class CardView extends JPanel {
 	}
 	
 	private void refreshDisplay(VCard vcard) {
+		if (vcard != null) {
+			try {
+				cardOnDisk.readFromDisk();
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, "Failed to read card from disk.", e);
+			}
+		}
+		
 		for (DisplayComponent displayComponent : displayComponents) {
 			displayComponent.setFromCard(vcard);
 		}
