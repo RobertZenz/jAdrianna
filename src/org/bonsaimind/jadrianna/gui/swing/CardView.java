@@ -21,19 +21,21 @@ import org.bonsaimind.jadrianna.gui.swing.components.NameComponent;
 
 import ezvcard.VCard;
 
-public class CardView extends JPanel {
+public class CardView extends JPanel implements DisplayComponentChangeListener {
 	
 	private static final Logger LOGGER = Logger.getLogger(Adrianna.class.getName());
 	
 	private VCardOnDisk cardOnDisk;
 	private List<DisplayComponent> displayComponents = new ArrayList<DisplayComponent>();
+	private JButton toolbarSave;
+	private JButton toolbarRefresh;
 	
 	public CardView() {
 		super(new BorderLayout());
 		
 		JToolBar toolbar = new JToolBar();
 		
-		JButton toolbarRefresh = new JButton("Refresh");
+		toolbarRefresh = new JButton("Refresh");
 		toolbarRefresh.addActionListener(new ActionListener() {
 			
 			@Override
@@ -45,12 +47,16 @@ public class CardView extends JPanel {
 		});
 		toolbar.add(toolbarRefresh);
 		
-		JButton toolbarSave = new JButton("Save");
+		toolbarSave = new JButton("Save");
 		toolbarSave.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (cardOnDisk != null) {
+					for (DisplayComponent displayComponent : displayComponents) {
+						displayComponent.setToCard(cardOnDisk.getCard());
+					}
+					
 					try {
 						cardOnDisk.writeToDisk();
 					} catch (IOException e) {
@@ -68,10 +74,12 @@ public class CardView extends JPanel {
 		Panel innerPanel = new Panel(new BorderLayout());
 		
 		NameComponent name = new NameComponent();
+		name.setChangeListener(this);
 		displayComponents.add(name);
 		innerPanel.add(name, BorderLayout.NORTH);
 		
 		AddressComponent address = new AddressComponent();
+		name.setChangeListener(this);
 		displayComponents.add(address);
 		innerPanel.add(address, BorderLayout.CENTER);
 		
@@ -104,5 +112,12 @@ public class CardView extends JPanel {
 		for (DisplayComponent displayComponent : displayComponents) {
 			displayComponent.setFromCard(vcard);
 		}
+		
+		toolbarSave.setEnabled(false);
+	}
+	
+	@Override
+	public void change() {
+		toolbarSave.setEnabled(true);
 	}
 }

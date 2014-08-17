@@ -8,12 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.bonsaimind.jadrianna.gui.swing.DisplayComponent;
-
 import ezvcard.VCard;
 import ezvcard.property.StructuredName;
 
-public class NameComponent extends JPanel implements DisplayComponent {
+public class NameComponent extends AbstractDisplayComponent {
 	
 	private JTextField additionalNamesField;
 	private JTextField familyNameField;
@@ -38,9 +36,11 @@ public class NameComponent extends JPanel implements DisplayComponent {
 		panel.add(honoricPrefixesField);
 		
 		familyNameField = new JTextField(15);
+		monitorChange(familyNameField);
 		panel.add(familyNameField);
 		
 		givenNameField = new JTextField(10);
+		monitorChange(givenNameField);
 		panel.add(givenNameField);
 		
 		additionalNamesField = new JTextField(10);

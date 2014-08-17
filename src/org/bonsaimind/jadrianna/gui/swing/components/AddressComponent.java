@@ -13,14 +13,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.bonsaimind.jadrianna.gui.swing.DisplayComponent;
 import org.bonsaimind.jadrianna.gui.swing.models.AddressListCellRenderer;
 import org.bonsaimind.jadrianna.gui.swing.models.AddressListModel;
 
 import ezvcard.VCard;
 import ezvcard.property.Address;
 
-public class AddressComponent extends JPanel implements DisplayComponent {
+public class AddressComponent extends AbstractDisplayComponent {
 	
 	private JList<Address> addressList;
 	private AddressListModel addressListModel;
