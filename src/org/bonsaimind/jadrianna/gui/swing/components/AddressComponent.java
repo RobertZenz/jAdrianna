@@ -2,6 +2,7 @@ package org.bonsaimind.jadrianna.gui.swing.components;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.Collections;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -120,7 +121,8 @@ public class AddressComponent extends AbstractDisplayComponent {
 	
 	@Override
 	public void setFromCard(VCard card) {
-		addressList.removeAll();
+		addressListModel.setAddresses(Collections.<Address> emptyList());
+		addressList.updateUI();
 		
 		if (card == null) {
 			return;
